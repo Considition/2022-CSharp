@@ -8,7 +8,7 @@ namespace DotNet
 {
     public static class Program
     {
-        private const string ApiKey = "";  // TODO: Enter your API key
+        private const string ApiKey = "ee373ab2-a8fb-4db9-4802-08da97ce1ad5";  // TODO: Enter your API key
         // The different map names can be found on considition.com/rules
         private const string Map = "Suburbia";     // TODO: Enter your desired map
         private static int bagType = 1;  // TODO: Enter your desired bag type

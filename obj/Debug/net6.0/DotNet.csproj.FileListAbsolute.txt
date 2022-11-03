@@ -1,0 +1,34 @@
+/Users/viktor/Other GitHub/2022-CSharp/bin/Debug/net6.0/DotNet
+/Users/viktor/Other GitHub/2022-CSharp/bin/Debug/net6.0/DotNet.deps.json
+/Users/viktor/Other GitHub/2022-CSharp/bin/Debug/net6.0/DotNet.runtimeconfig.json
+/Users/viktor/Other GitHub/2022-CSharp/bin/Debug/net6.0/DotNet.dll
+/Users/viktor/Other GitHub/2022-CSharp/bin/Debug/net6.0/DotNet.pdb
+/Users/viktor/Other GitHub/2022-CSharp/bin/Debug/net6.0/Newtonsoft.Json.dll
+/Users/viktor/Other GitHub/2022-CSharp/obj/Debug/net6.0/DotNet.csproj.AssemblyReference.cache
+/Users/viktor/Other GitHub/2022-CSharp/obj/Debug/net6.0/DotNet.GeneratedMSBuildEditorConfig.editorconfig
+/Users/viktor/Other GitHub/2022-CSharp/obj/Debug/net6.0/DotNet.AssemblyInfoInputs.cache
+/Users/viktor/Other GitHub/2022-CSharp/obj/Debug/net6.0/DotNet.AssemblyInfo.cs
+/Users/viktor/Other GitHub/2022-CSharp/obj/Debug/net6.0/DotNet.csproj.CoreCompileInputs.cache
+/Users/viktor/Other GitHub/2022-CSharp/obj/Debug/net6.0/DotNet.csproj.CopyComplete
+/Users/viktor/Other GitHub/2022-CSharp/obj/Debug/net6.0/DotNet.dll
+/Users/viktor/Other GitHub/2022-CSharp/obj/Debug/net6.0/refint/DotNet.dll
+/Users/viktor/Other GitHub/2022-CSharp/obj/Debug/net6.0/DotNet.pdb
+/Users/viktor/Other GitHub/2022-CSharp/obj/Debug/net6.0/DotNet.genruntimeconfig.cache
+/Users/viktor/Other GitHub/2022-CSharp/obj/Debug/net6.0/ref/DotNet.dll
+C:\Users\Marti\Source\Repos\2022-CSharp\obj\Debug\net6.0\DotNet.dll
+C:\Users\Marti\Source\Repos\2022-CSharp\obj\Debug\net6.0\refint\DotNet.dll
+C:\Users\Marti\Source\Repos\2022-CSharp\obj\Debug\net6.0\DotNet.pdb
+C:\Users\Marti\Source\Repos\2022-CSharp\bin\Debug\net6.0\DotNet.exe
+C:\Users\Marti\Source\Repos\2022-CSharp\bin\Debug\net6.0\DotNet.deps.json
+C:\Users\Marti\Source\Repos\2022-CSharp\bin\Debug\net6.0\DotNet.runtimeconfig.json
+C:\Users\Marti\Source\Repos\2022-CSharp\bin\Debug\net6.0\DotNet.dll
+C:\Users\Marti\Source\Repos\2022-CSharp\bin\Debug\net6.0\DotNet.pdb
+C:\Users\Marti\Source\Repos\2022-CSharp\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\Marti\Source\Repos\2022-CSharp\obj\Debug\net6.0\DotNet.csproj.AssemblyReference.cache
+C:\Users\Marti\Source\Repos\2022-CSharp\obj\Debug\net6.0\DotNet.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Marti\Source\Repos\2022-CSharp\obj\Debug\net6.0\DotNet.AssemblyInfoInputs.cache
+C:\Users\Marti\Source\Repos\2022-CSharp\obj\Debug\net6.0\DotNet.AssemblyInfo.cs
+C:\Users\Marti\Source\Repos\2022-CSharp\obj\Debug\net6.0\DotNet.csproj.CoreCompileInputs.cache
+C:\Users\Marti\Source\Repos\2022-CSharp\obj\Debug\net6.0\DotNet.csproj.CopyComplete
+C:\Users\Marti\Source\Repos\2022-CSharp\obj\Debug\net6.0\DotNet.genruntimeconfig.cache
+C:\Users\Marti\Source\Repos\2022-CSharp\obj\Debug\net6.0\ref\DotNet.dll

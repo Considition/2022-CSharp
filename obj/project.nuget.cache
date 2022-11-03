@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "zwcHtKcWnvlV0mHARg7WDghC70tqb7qD5WQy9rF1aBGrfrhHA4VY9JKgSeSeRn9S9OWX8HxKl0B1yxnHPDIk1g==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Marti\\Source\\Repos\\2022-CSharp\\DotNet.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Marti\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}
