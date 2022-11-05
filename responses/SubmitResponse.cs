@@ -4,12 +4,13 @@ namespace DotNet
 {
     public class SubmitResponse
     {
-        public int Score;
-        public string GameId;
+        public int score;
+        public string gameId;
         public bool valid;
-        public System.Collections.Generic.List<WeekModel> Weeks;
-        public int ProducedBags;
-        public int DestroyedBags;
-        public string Link;
+        public System.Collections.Generic.List<WeekModel> weeks;
+        public System.Collections.Generic.List<WeekModel> dailys;
+        public int totalProducedBags;
+        public int totalDestroyedBags;
+        public string visualizer;
     }
 }

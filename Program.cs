@@ -25,12 +25,13 @@ namespace DotNet
             var solution = solver.Solve(bagType, Map);
             var submitSolution = GameLayer.Submit(JsonSerializer.Serialize(solution), Map);
            
-            Console.WriteLine("Your GameId is: " + submitSolution.GameId);
-            Console.WriteLine("Your score is: " + submitSolution.Score);
-            Console.WriteLine("Your weekly results is: " + submitSolution.Weeks);
-            Console.WriteLine("Your amount of produced bags is: " + submitSolution.ProducedBags);
-            Console.WriteLine("Your amount of destroyed bags is: " + submitSolution.DestroyedBags);
-            Console.WriteLine("Link to visualisation" + submitSolution.Link);
+            Console.WriteLine("Your GameId is: " + submitSolution.gameId);
+            Console.WriteLine("Your score is: " + submitSolution.score);
+            Console.WriteLine("Your weekly results is: " + submitSolution.weeks);
+            Console.WriteLine("Your daily results is: " + submitSolution.dailys);
+            Console.WriteLine("Your amount of produced bags is: " + submitSolution.totalProducedBags);
+            Console.WriteLine("Your amount of destroyed bags is: " + submitSolution.totalDestroyedBags);
+            Console.WriteLine("Link to visualisation" + submitSolution.visualizer);
     
         }
     }
