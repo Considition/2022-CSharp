@@ -1,6 +1,6 @@
-﻿using DotNet.models;
+﻿using CompetitiveCoders.com_Considition2022.models;
 
-namespace DotNet
+namespace CompetitiveCoders.com_Considition2022.responses
 {
     public class SubmitResponse
     {

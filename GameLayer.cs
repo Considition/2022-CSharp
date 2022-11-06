@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-//using DotNet.Responses;
+using CompetitiveCoders.com_Considition2022.responses;
+//using CompetitiveCoders.com_Considition2022.Responses;
 using Newtonsoft.Json;
 
-namespace DotNet
+namespace CompetitiveCoders.com_Considition2022
 {
     public class GameLayer
     {
         private readonly Api _api;
 
-        public GameLayer(string apiKey)
+        public GameLayer()
         {
-            _api = new Api(apiKey);
+            _api = new Api();
         }
 
         ///  <summary> Creates a new game.</summary>

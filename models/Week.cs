@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace DotNet.models
+namespace CompetitiveCoders.com_Considition2022.models
 {
     public class WeekModel
     {

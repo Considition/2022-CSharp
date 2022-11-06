@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace DotNet.models
+namespace CompetitiveCoders.com_Considition2022.models
 {
     public class Solution
     {
@@ -11,6 +11,12 @@ namespace DotNet.models
         public int bagType { get; set; }
         public List<int> orders { get; set; }
         public string mapName { get; set; }
+
+
+        public double FirstDayBagsPerPerson { get; set; }
+        public int NewBagsInterval { get; set; }
+        public double RenewBagsPerPerson { get; set; }
+
 
         public Solution()
         { }
