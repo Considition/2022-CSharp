@@ -18,39 +18,35 @@ namespace CompetitiveCoders.com_Considition2022
 
         public static void Main(string[] args)
         {
-            if (!File.Exists("mapname.txt"))
-            {
-                File.WriteAllText("mapname.txt", "Suburbia");
-            }
-            
-            GlobalConfig.CurrentMap = File.ReadAllText("mapname.txt");
-            
+            SetMapName();
             
             var results = new List<(int, SolutionChromosome)>();
-
-            GlobalConfig.BagType = 1;
+            
             var needlePopMinSize = 10;
             var needlePopMaxSize = 20;
-            var needleRuns = 15;
-            
+            var needleRuns = 20;
+
+
+            GlobalConfig.BagType = 1;
             Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
-            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns)));
+            
+            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns, GetBestPreviousRun())));
 
             GlobalConfig.BagType = 2;
             Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
-            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns)));
+            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns, GetBestPreviousRun())));
 
             GlobalConfig.BagType = 3;
             Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
-            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns)));
+            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns, GetBestPreviousRun())));
 
             GlobalConfig.BagType = 4;
             Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
-            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns)));
+            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns, GetBestPreviousRun())));
 
             GlobalConfig.BagType = 5;
             Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
-            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns)));
+            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns, GetBestPreviousRun())));
 
             foreach (var chromosome in results.OrderByDescending(r => r.Item2.Fitness))
             {
@@ -68,9 +64,51 @@ namespace CompetitiveCoders.com_Considition2022
 
             //string Map = "Fancyville";
             //int bagType = 1;
-
+             
             //RunGame(Map, true);
 
+        }
+
+        private static SolutionChromosome GetBestPreviousRun()
+        {
+            if (!File.Exists(GlobalConfig.ResultsCsvFilename))
+            {
+                return null;
+            }
+
+            int maxScore = 0;
+            string bestLine = null;
+
+            var lines = File.ReadAllLines(GlobalConfig.ResultsCsvFilename);
+            foreach (var line in lines.Skip(1))
+            {
+                var ss = line.Split('\t');
+                var score = int.Parse(ss[1]);
+                if (score > maxScore)
+                {
+                    maxScore = score;
+                    bestLine = line;
+                }
+
+
+            }
+
+            SolutionChromosome best = new SolutionChromosome();
+            best.SetGenesFromLogRow(bestLine);
+
+            return best;
+
+
+        }
+
+        private static void SetMapName()
+        {
+            if (!File.Exists("mapname.txt"))
+            {
+                File.WriteAllText("mapname.txt", "Suburbia");
+            }
+
+            GlobalConfig.CurrentMap = File.ReadAllText("mapname.txt");
         }
 
         private static SolutionChromosome RunFitness(int populationMinSize, int populationMaxSize, int runs, SolutionChromosome firstChromosome = null)

@@ -20,20 +20,30 @@ namespace CompetitiveCoders.com_Considition2022.Genetic
             solutionCandidate.bagType = GlobalConfig.BagType;
 
 
-            SubmitResponse result;
-
-            try
+            SubmitResponse result = null;
+            int tries = 0;
+            while (result == null)
             {
-                result = GameRunner.RunGame(GlobalConfig.CurrentMap, solutionCandidate, false);
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Retrying in 1s.");
-                Thread.Sleep(1000); //backoff
-                result = GameRunner.RunGame(GlobalConfig.CurrentMap, solutionCandidate, false); //retry
+                tries++;
 
+                try
+                {
+                    result = GameRunner.RunGame(GlobalConfig.CurrentMap, solutionCandidate, false);
+                }
+                catch 
+                {
+                    var backoffTime = 2000+100*tries;
+                    Console.WriteLine($" !! Retrying in {backoffTime}");
+                    Thread.Sleep(backoffTime); //backoff
+                    result = null;
+                    if (tries > 20)
+                    {
+                        throw;
+                    }
+                }
+
+                
             }
-            
 
             ////Test
             //var result = new SubmitResponse()
@@ -59,7 +69,7 @@ namespace CompetitiveCoders.com_Considition2022.Genetic
         {
             var logresult =
                 $"{result.gameId}\t{result.score}\t{solutionCandidate.bagType}\t{solutionCandidate.recycleRefundChoice}\t{solutionCandidate.bagPrice}\t{solutionCandidate.refundAmountPercent}\t{solutionCandidate.FirstDayBagsPerPerson}\t{solutionCandidate.NewBagsInterval}\t{solutionCandidate.RenewBagsPerPerson}\t{solutionCandidate.BudgetPercentStart}\t{solutionCandidate.BudgetPercentRenew}\t{result.totalProducedBags}\t{result.totalDestroyedBags}";
-            var logFile = $"data\\results-{GlobalConfig.CurrentMap}.csv";
+            var logFile = GlobalConfig.ResultsCsvFilename;
 
             if (!File.Exists(logFile))
             {

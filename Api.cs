@@ -59,7 +59,7 @@ namespace CompetitiveCoders.com_Considition2022
                 
                 Console.WriteLine($"[{DateTime.Now.ToString("HH:mm:ss:fff")}] Calling api...");
                 response = _client.PostAsync("submit", data).Result;
-                Thread.Sleep(1000); // Hopefully nice enough for the server
+                Thread.Sleep(250); // Hopefully nice enough for the server
             }
                 
             var result = await response.Content.ReadAsStringAsync();
@@ -69,7 +69,7 @@ namespace CompetitiveCoders.com_Considition2022
                     Console.WriteLine("Exception:" + result);
                     Console.WriteLine();
                     Console.WriteLine("Fatal Error: could not submit the game");
-                    Environment.Exit(1);
+                    throw new Exception($" !! Exception on posting game: {response.StatusCode}");
                 }
             
                 var deserialized = JsonConvert.DeserializeObject<SubmitResponse>(result);

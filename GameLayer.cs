@@ -20,7 +20,15 @@ namespace CompetitiveCoders.com_Considition2022
         ///  <param name="mapName">map choice </param>
         public GameResponse MapInfo(string mapName)
         {
+            if (GlobalConfig.GameResponseMemo.ContainsKey(mapName))
+            {
+                return GlobalConfig.GameResponseMemo[mapName];
+            }
+
             var state = _api.MapInfo(mapName).Result;
+            
+            GlobalConfig.GameResponseMemo.Add(mapName, state);
+            
             return state;
         }
 

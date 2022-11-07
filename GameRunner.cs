@@ -13,6 +13,12 @@ public static class GameRunner
 
     public static SubmitResponse RunGame(string mapName, Solution candidate, bool printResults)
     {
+        //if (GlobalConfig.ScoringMemo.ContainsKey(candidate))
+        //{
+        //    Console.WriteLine("* Found solution in memo, skipping api call");
+
+        //}
+
         var gameInformation = GameLayer.MapInfo(mapName);
 
         int days = mapName.Equals("Suburbia") || mapName.Equals("Fancyville") ? 31 : 365;

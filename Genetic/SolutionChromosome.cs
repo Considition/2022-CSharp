@@ -1,6 +1,7 @@
 ﻿using CompetitiveCoders.com_Considition2022.models;
 using GeneticSharp;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CompetitiveCoders.com_Considition2022.Genetic
@@ -11,6 +12,19 @@ namespace CompetitiveCoders.com_Considition2022.Genetic
             : base(8)
         {
             CreateGenes();
+        }
+
+        public void SetGenesFromLogRow(string logRow)
+        {
+            var ss = logRow.Split('\t');
+            ReplaceGene(0, new Gene(bool.Parse(ss[3])));
+            ReplaceGene(1, new Gene(int.Parse(ss[4])));
+            ReplaceGene(2, new Gene(double.Parse(ss[5])));
+            ReplaceGene(3, new Gene(double.Parse(ss[9])));
+            ReplaceGene(4, new Gene(double.Parse(ss[6])));
+            ReplaceGene(5, new Gene(int.Parse(ss[7])));
+            ReplaceGene(6, new Gene(double.Parse(ss[8])));
+            ReplaceGene(7, new Gene(double.Parse(ss[10])));
         }
 
         public Solution ToSolution()
@@ -32,6 +46,19 @@ namespace CompetitiveCoders.com_Considition2022.Genetic
 
         Random _rng = new Random();
 
+
+        private Dictionary<int, int[]> allowedPrices = new(5)
+        {
+            {1, new[] {1, 2, 5}},
+            {2, new[] {1, 2, 5}},
+            {3, new[] {5, 8, 10, 12}},
+            {4, new[] {20, 25, 30, 40}},
+            {5, new[] {150, 200, 220, 300, 400}},
+
+
+        };
+
+
         public override Gene GenerateGene(int geneIndex)
         {
             switch (geneIndex)
@@ -39,8 +66,8 @@ namespace CompetitiveCoders.com_Considition2022.Genetic
                 case 0: //recycleRefundChoice
                     return new Gene(_rng.NextDouble() > 0.5);
                 case 1: //bagPrice
-                    var allowedPrices = new[] { 1, 10, 20, 50,70,100,150,200,250,300 };
-                    return new Gene(allowedPrices[_rng.Next(allowedPrices.Length)]);
+                   
+                    return new Gene(allowedPrices[GlobalConfig.BagType][_rng.Next(allowedPrices[GlobalConfig.BagType].Count())]);
                 case 2: //refundAmountPercent
                     var percentages = new[] { 0, 0.10, 0.30, 0.60, 0.90 };
                     return new Gene(percentages[_rng.Next(percentages.Length)]);
