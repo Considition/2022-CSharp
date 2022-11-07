@@ -24,13 +24,20 @@ namespace CompetitiveCoders.com_Considition2022
         {
             var orders = new List<int>();
 
-            orders.Add((int)Math.Floor(solution.FirstDayBagsPerPerson * gameSettings.population));
+            orders.Add((int)Math.Floor(solution.FirstDayBagsPerPerson * gameSettings.population) + (int)Math.Floor(solution.BudgetPercentStart*gameSettings.companyBudget));
 
             for (int day = 1; day < days; day++)
             {
+
+
+
                 if (day % solution.NewBagsInterval == 0)
                 {
-                    orders.Add((int)Math.Floor(solution.RenewBagsPerPerson * gameSettings.population));
+                    orders.Add((int)Math.Floor(solution.RenewBagsPerPerson * gameSettings.population* bagType_price[solution.bagType-1]) + (int)Math.Floor(solution.BudgetPercentRenew * gameSettings.companyBudget));
+                }
+                else
+                {
+                    orders.Add(0);
                 }
             }
 

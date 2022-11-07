@@ -2,6 +2,8 @@
 using CompetitiveCoders.com_Considition2022.models;
 using GeneticSharp;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Xml;
@@ -12,22 +14,80 @@ namespace CompetitiveCoders.com_Considition2022
     {
         // The different map names can be found on considition.com/rules
 
-        private static readonly GameLayer GameLayer = new();
+        
 
         public static void Main(string[] args)
+        {
+            if (!File.Exists("mapname.txt"))
+            {
+                File.WriteAllText("mapname.txt", "Suburbia");
+            }
+            
+            GlobalConfig.CurrentMap = File.ReadAllText("mapname.txt");
+            
+            
+            var results = new List<(int, SolutionChromosome)>();
+
+            GlobalConfig.BagType = 1;
+            var needlePopMinSize = 10;
+            var needlePopMaxSize = 20;
+            var needleRuns = 15;
+            
+            Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
+            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns)));
+
+            GlobalConfig.BagType = 2;
+            Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
+            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns)));
+
+            GlobalConfig.BagType = 3;
+            Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
+            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns)));
+
+            GlobalConfig.BagType = 4;
+            Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
+            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns)));
+
+            GlobalConfig.BagType = 5;
+            Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
+            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns)));
+
+            foreach (var chromosome in results.OrderByDescending(r => r.Item2.Fitness))
+            {
+                Console.WriteLine($"Score: {chromosome.Item2.Fitness}  -  BagType: {chromosome.Item1}");
+            }
+
+            var bestResult = results.MaxBy(r => r.Item2.Fitness);
+            GlobalConfig.BagType = bestResult.Item1;
+
+
+            Console.WriteLine($" **** Focusing on bagtype {GlobalConfig.BagType} **** ");
+            var bestSoFar = RunFitness(20, 40, 100, bestResult.Item2);
+
+
+
+            //string Map = "Fancyville";
+            //int bagType = 1;
+
+            //RunGame(Map, true);
+
+        }
+
+        private static SolutionChromosome RunFitness(int populationMinSize, int populationMaxSize, int runs, SolutionChromosome firstChromosome = null)
         {
             var selection = new EliteSelection();
             var crossover = new UniformCrossover();
             var mutation = new UniformMutation(true);
 
             var fitness = new SolutionFitnessFunction();
-            var firstChromosome = new SolutionChromosome();
+            firstChromosome ??= new SolutionChromosome();
 
-            var population = new Population(10, 20, firstChromosome);
+            var population = new Population(populationMinSize, populationMaxSize, firstChromosome);
 
             var ga = new GeneticAlgorithm(population, fitness, selection, crossover, mutation);
-            ga.Termination = new FitnessStagnationTermination(100);
-            ga.GenerationRan += (s, e) => Console.WriteLine($"Generation {ga.GenerationsNumber}. Best fitness: {ga.BestChromosome.Fitness.Value}");
+            ga.Termination = new FitnessStagnationTermination(runs);
+            ga.GenerationRan += (s, e) =>
+                Console.WriteLine($"Generation {ga.GenerationsNumber}. Best fitness: {ga.BestChromosome.Fitness.Value}");
 
             Console.WriteLine("GA running...");
             ga.Start();
@@ -36,44 +96,7 @@ namespace CompetitiveCoders.com_Considition2022
             Console.WriteLine($"Best solution found has fitness: {ga.BestChromosome.Fitness}");
             Console.WriteLine($"Elapsed time: {ga.TimeEvolving}");
 
-
-
-
-            //string Map = "Fancyville";
-            //int bagType = 1;
-
-            //RunGame(Map, bagType);
-
-        }
-
-        private static int RunGame(string mapName)
-        {
-            var gameInformation = GameLayer.MapInfo(mapName);
-
-            int days = mapName.Equals("Suburbia") || mapName.Equals("Fancyville") ? 31 : 365;
-
-
-            var solutionCandidate = new Solution();
-            solutionCandidate.recycleRefundChoice = true;
-            solutionCandidate.bagPrice = 10;
-            solutionCandidate.refundAmount = 1;
-            solutionCandidate.bagType = 1;
-            solutionCandidate.mapName = mapName;
-
-            var solver = new Solver();
-            var solution = solver.AddOrders(solutionCandidate, gameInformation,days);
-
-            var solutionResult = GameLayer.Submit(JsonSerializer.Serialize(solution), mapName);
-
-            Console.WriteLine("Your GameId is: " + solutionResult.gameId);
-            Console.WriteLine("Your score is: " + solutionResult.score);
-            Console.WriteLine("Your weekly results is: " + solutionResult.weeks);
-            Console.WriteLine("Your daily results is: " + solutionResult.dailys);
-            Console.WriteLine("Your amount of produced bags is: " + solutionResult.totalProducedBags);
-            Console.WriteLine("Your amount of destroyed bags is: " + solutionResult.totalDestroyedBags);
-            Console.WriteLine("Link to visualisation" + solutionResult.visualizer);
-
-            return solutionResult.score;
+            return ga.BestChromosome as SolutionChromosome;
         }
     }
 }

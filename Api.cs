@@ -52,12 +52,14 @@ namespace CompetitiveCoders.com_Considition2022
         {
             HttpResponseMessage response;
 
+            var data = new StringContent(solution, Encoding.UTF8, "application/json");
+            
             lock (GlobalConfig.api_call_lock) //sorry
             {
-                var data = new StringContent(solution, Encoding.UTF8, "application/json");
-                Console.WriteLine($"[{DateTime.Now.ToShortTimeString}] Calling api...");
+                
+                Console.WriteLine($"[{DateTime.Now.ToString("HH:mm:ss:fff")}] Calling api...");
                 response = _client.PostAsync("submit", data).Result;
-                Thread.Sleep(100); // Hopefully nice enough for the server
+                Thread.Sleep(1000); // Hopefully nice enough for the server
             }
                 
             var result = await response.Content.ReadAsStringAsync();
@@ -71,8 +73,9 @@ namespace CompetitiveCoders.com_Considition2022
                 }
             
                 var deserialized = JsonConvert.DeserializeObject<SubmitResponse>(result);
-                GlobalConfig.LogToFile($"submit-{deserialized.gameId}.json", result);
-            
+                GlobalConfig.LogToFile($"submit-{deserialized.gameId}-sent.json", await data.ReadAsStringAsync());
+                GlobalConfig.LogToFile($"submit-{deserialized.gameId}-response.json", result);
+
 
             return deserialized;
         }
