@@ -28,6 +28,37 @@ namespace CompetitiveCoders.com_Considition2022
 
         public async Task<GameResponse> MapInfo(string mapName)
         {
+            if (mapName.ToLower() == "sky scrape city")
+            {
+                return new GameResponse()
+                {
+                    mapName = "mjau",
+                    companyBudget = 100000,
+                    population = 1000
+
+                };
+            }
+            if (mapName.ToLower() == "pleasantville")
+            {
+                return new GameResponse()
+                {
+                    mapName = "mjau",
+                    companyBudget = 10000,
+                    population = 100
+
+                };
+            }
+
+            if (mapName.ToLower() == "mountana")
+            {
+                return new GameResponse()
+                {
+                    mapName = "mjau",
+                    companyBudget = 10000,
+                    population = 100
+
+                };
+            }
 
             var data = new StringContent(mapName, Encoding.UTF8, "application/json");
             var response = await _client.GetAsync("mapInfo?MapName=" + mapName);
@@ -41,7 +72,7 @@ namespace CompetitiveCoders.com_Considition2022
                 Console.WriteLine("Exception:" + result);
                 Console.WriteLine();
                 Console.WriteLine("Fatal Error: could not retrieve the map");
-                Environment.Exit(1);
+                throw new Exception("Could not retrieve the map");
             }
 
             return JsonConvert.DeserializeObject<GameResponse>(result);

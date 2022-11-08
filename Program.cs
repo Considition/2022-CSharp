@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Threading;
 using System.Xml;
 
 namespace CompetitiveCoders.com_Considition2022
@@ -20,46 +21,59 @@ namespace CompetitiveCoders.com_Considition2022
         {
             SetMapName();
             
-            var results = new List<(int, SolutionChromosome)>();
+            //var results = new List<(int, SolutionChromosome)>();
             
-            var needlePopMinSize = 8;
-            var needlePopMaxSize = 16;
-            var needleRuns = 15;
+
+            //var needlePopMinSize = 7;
+            //var needlePopMaxSize = 14;
+            //var needleRuns = 15;
 
 
-            GlobalConfig.BagType = 1;
-            Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
+            ////GlobalConfig.BagType = 1;
+            ////Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
 
-            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns, GetBestPreviousRun())));
+            ////results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns, GetBestPreviousRun())));
 
-            GlobalConfig.BagType = 2;
-            Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
-            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns, GetBestPreviousRun())));
+            //GlobalConfig.BagType = 2;
+            //Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
+            //results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns, GetBestPreviousRun())));
 
-            GlobalConfig.BagType = 3;
-            Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
-            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns, GetBestPreviousRun())));
+            //GlobalConfig.BagType = 3;
+            //Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
+            //results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns, GetBestPreviousRun())));
 
-            GlobalConfig.BagType = 4;
-            Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
-            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns, GetBestPreviousRun())));
+            //GlobalConfig.BagType = 4;
+            //Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
+            //results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns, GetBestPreviousRun())));
 
-            GlobalConfig.BagType = 5;
-            Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
-            results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns, GetBestPreviousRun())));
+            //GlobalConfig.BagType = 5;
+            //Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
+            //results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns, GetBestPreviousRun())));
 
-            foreach (var chromosome in results.OrderByDescending(r => r.Item2.Fitness))
+            //foreach (var chromosome in results.OrderByDescending(r => r.Item2.Fitness))
+            //{
+            //    Console.WriteLine($"Score: {chromosome.Item2.Fitness}  -  BagType: {chromosome.Item1}");
+            //}
+
+            //var bestResult = results.MaxBy(r => r.Item2.Fitness);
+            //GlobalConfig.BagType = bestResult.Item1;
+
+            SetBagType();
+
+            while (true)
             {
-                Console.WriteLine($"Score: {chromosome.Item2.Fitness}  -  BagType: {chromosome.Item1}");
+                try
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($" **** Focusing on bagtype {GlobalConfig.BagType} **** ");
+                    var bestSoFar = RunFitness(7, 14, 500, GetBestPreviousRun());
+                }
+                catch 
+                {
+                    Console.WriteLine("FAILED, retrying in 5s");
+                    Thread.Sleep(5000);
+                }
             }
-
-            var bestResult = results.MaxBy(r => r.Item2.Fitness);
-            GlobalConfig.BagType = bestResult.Item1;
-
-
-            Console.WriteLine($" **** Focusing on bagtype {GlobalConfig.BagType} **** ");
-            var bestSoFar = RunFitness(20, 40, 500, bestResult.Item2);
-
 
 
             //string Map = "Fancyville";
@@ -109,6 +123,16 @@ namespace CompetitiveCoders.com_Considition2022
             }
 
             GlobalConfig.CurrentMap = File.ReadAllText("mapname.txt");
+        }
+
+        private static void SetBagType()
+        {
+            if (!File.Exists("bagtype.txt"))
+            {
+                File.WriteAllText("bagtype.txt", "1");
+            }
+
+            GlobalConfig.BagType= int.Parse(File.ReadAllText("bagtype.txt"));
         }
 
         private static SolutionChromosome RunFitness(int populationMinSize, int populationMaxSize, int runs, SolutionChromosome firstChromosome = null)

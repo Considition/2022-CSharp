@@ -93,7 +93,7 @@ namespace CompetitiveCoders.com_Considition2022.Genetic
                     return new Gene(choices[_rng.Next(choices.Count())]);
 
                 case 5: //NewBagsInterval
-                    var maxNewBagsInterval = 9;
+                    var maxNewBagsInterval = 12;
                     var minNewBagsInterval = 1;
                     return new Gene(_rng.Next(minNewBagsInterval, maxNewBagsInterval + 1));
                 case 6: //RenewBagsPerPerson
