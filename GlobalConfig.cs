@@ -21,7 +21,7 @@ namespace CompetitiveCoders.com_Considition2022
         public static string ResultsCsvFilename => $"data\\results-{GlobalConfig.CurrentMap}-bag-{GlobalConfig.BagType}.csv";
 
 
-        public static Dictionary<Solution, int> ScoringMemo = new();
+        public static Dictionary<string, SubmitResponse> ScoringMemo = new();
 
 
         public static Dictionary<string, GameResponse> GameResponseMemo = new();

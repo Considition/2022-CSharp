@@ -29,7 +29,18 @@ public static class GameRunner
         
         
 
-        var solutionResult = GameLayer.Submit(JsonSerializer.Serialize(solution), mapName);
+        SubmitResponse solutionResult;
+        if (GlobalConfig.ScoringMemo.ContainsKey(candidate.HashValue))
+        {
+            Console.WriteLine("¤ Hit scoring cache!");
+            solutionResult = GlobalConfig.ScoringMemo[candidate.HashValue];
+        }
+        else
+        {
+            solutionResult = GameLayer.Submit(JsonSerializer.Serialize(solution), mapName);
+            GlobalConfig.ScoringMemo[candidate.HashValue] = solutionResult;
+        }
+        
 
         if (printResults)
         {

@@ -39,7 +39,8 @@ namespace CompetitiveCoders.com_Considition2022.models
         public Solution()
         { }
 
-
+        public string HashValue =>
+            $"{recycleRefundChoice}-{bagPrice}-{bagType}-{mapName}-{refundAmountPercent}-{FirstDayBagsPerPerson}-{NewBagsInterval}-{RenewBagsPerPerson}-{BudgetPercentRenew}-{BudgetPercentStart}";
 
         public Solution(bool recycleRefundChoice, int bagPrice, int refundAmountPercent, int bagType, List<int> orders)
         {

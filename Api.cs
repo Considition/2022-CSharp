@@ -59,7 +59,7 @@ namespace CompetitiveCoders.com_Considition2022
                 
                 Console.WriteLine($"[{DateTime.Now.ToString("HH:mm:ss:fff")}] Calling api...");
                 response = _client.PostAsync("submit", data).Result;
-                Thread.Sleep(250); // Hopefully nice enough for the server
+                //Thread.Sleep(100); // Hopefully nice enough for the server
             }
                 
             var result = await response.Content.ReadAsStringAsync();

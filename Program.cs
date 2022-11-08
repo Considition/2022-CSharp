@@ -22,9 +22,9 @@ namespace CompetitiveCoders.com_Considition2022
             
             var results = new List<(int, SolutionChromosome)>();
             
-            var needlePopMinSize = 10;
-            var needlePopMaxSize = 20;
-            var needleRuns = 20;
+            var needlePopMinSize = 7;
+            var needlePopMaxSize = 14;
+            var needleRuns = 15;
 
 
             GlobalConfig.BagType = 1;
@@ -58,7 +58,7 @@ namespace CompetitiveCoders.com_Considition2022
 
 
             Console.WriteLine($" **** Focusing on bagtype {GlobalConfig.BagType} **** ");
-            var bestSoFar = RunFitness(20, 40, 100, bestResult.Item2);
+            var bestSoFar = RunFitness(20, 40, 200, bestResult.Item2);
 
 
 
@@ -76,7 +76,7 @@ namespace CompetitiveCoders.com_Considition2022
                 return null;
             }
 
-            int maxScore = 0;
+            int maxScore = int.MinValue;
             string bestLine = null;
 
             var lines = File.ReadAllLines(GlobalConfig.ResultsCsvFilename);
@@ -113,7 +113,8 @@ namespace CompetitiveCoders.com_Considition2022
 
         private static SolutionChromosome RunFitness(int populationMinSize, int populationMaxSize, int runs, SolutionChromosome firstChromosome = null)
         {
-            var selection = new EliteSelection();
+            var selection = new EliteSelection(2);
+            //var selection = new RouletteWheelSelection();
             var crossover = new UniformCrossover();
             var mutation = new UniformMutation(true);
 
