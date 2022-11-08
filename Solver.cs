@@ -24,7 +24,15 @@ namespace CompetitiveCoders.com_Considition2022
         {
             var orders = new List<int>();
 
-            orders.Add((int)Math.Floor(solution.FirstDayBagsPerPerson * gameSettings.population) + (int)Math.Floor(solution.BudgetPercentStart*gameSettings.companyBudget));
+            var firstDayOrder = bagType_price[solution.bagType-1] * (int)Math.Floor(solution.FirstDayBagsPerPerson * gameSettings.population) + (int)Math.Floor(solution.BudgetPercentStart*gameSettings.companyBudget);
+            firstDayOrder = Math.Floor(firstDayOrder / bagType_price[solution.bagType - 1]) *
+                            bagType_price[solution.bagType - 1];
+
+            var finalFirstDayOrder = (int) firstDayOrder;
+
+            orders.Add(Math.Min(finalFirstDayOrder, gameSettings.companyBudget));
+
+
 
             for (int day = 1; day < days; day++)
             {
@@ -33,7 +41,19 @@ namespace CompetitiveCoders.com_Considition2022
 
                 if (day % solution.NewBagsInterval == 0)
                 {
-                    orders.Add((int)Math.Floor(solution.RenewBagsPerPerson * gameSettings.population* bagType_price[solution.bagType-1]) + (int)Math.Floor(solution.BudgetPercentRenew * gameSettings.companyBudget));
+                    var renewOrder = (int)Math.Floor(solution.RenewBagsPerPerson * gameSettings.population* bagType_price[solution.bagType-1]) + (int)Math.Floor(solution.BudgetPercentRenew * gameSettings.companyBudget);
+
+                    var roundedRenewOrder = Math.Floor(renewOrder / bagType_price[solution.bagType - 1]) *
+                                            bagType_price[solution.bagType - 1];
+
+
+                    var maxBudget = Math.Floor(gameSettings.companyBudget * 0.9 / bagType_price[solution.bagType - 1]) *
+                                    bagType_price[solution.bagType - 1];
+
+                    var finalRenewOrder = Math.Min((int) roundedRenewOrder, (int) maxBudget);
+                    
+                    
+                    orders.Add(finalRenewOrder);
                 }
                 else
                 {

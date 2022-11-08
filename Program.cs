@@ -29,7 +29,7 @@ namespace CompetitiveCoders.com_Considition2022
 
             GlobalConfig.BagType = 1;
             Console.WriteLine($" ** Testing bagtype {GlobalConfig.BagType}");
-            
+
             results.Add((GlobalConfig.BagType, RunFitness(needlePopMinSize, needlePopMaxSize, needleRuns, GetBestPreviousRun())));
 
             GlobalConfig.BagType = 2;

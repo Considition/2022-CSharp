@@ -28,6 +28,7 @@ public static class GameRunner
 
         
         
+        
 
         SubmitResponse solutionResult;
         if (GlobalConfig.ScoringMemo.ContainsKey(candidate.HashValue))
