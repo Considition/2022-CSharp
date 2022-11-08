@@ -1,3 +1,6 @@
+
+# Algorithm subimssion for the Considition 2022 Competition by [CompetitiveCoders.com](https://www.competitivecoders.com)
+
 # CSharp Starterkit Considition 2022
 This is the StarterKit for Considition 2022 which will help you get going as quickly as possible with the competition.
 
