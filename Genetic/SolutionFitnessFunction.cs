@@ -36,7 +36,7 @@ namespace CompetitiveCoders.com_Considition2022.Genetic
                     Console.WriteLine($" !! Retrying in {backoffTime}");
                     Thread.Sleep(backoffTime); //backoff
                     result = null;
-                    if (tries > 20)
+                    if (tries > 50)
                     {
                         throw;
                     }

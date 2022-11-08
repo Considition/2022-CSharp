@@ -22,8 +22,8 @@ namespace CompetitiveCoders.com_Considition2022
             
             var results = new List<(int, SolutionChromosome)>();
             
-            var needlePopMinSize = 7;
-            var needlePopMaxSize = 14;
+            var needlePopMinSize = 8;
+            var needlePopMaxSize = 16;
             var needleRuns = 15;
 
 
@@ -58,7 +58,7 @@ namespace CompetitiveCoders.com_Considition2022
 
 
             Console.WriteLine($" **** Focusing on bagtype {GlobalConfig.BagType} **** ");
-            var bestSoFar = RunFitness(20, 40, 200, bestResult.Item2);
+            var bestSoFar = RunFitness(20, 40, 500, bestResult.Item2);
 
 
 

@@ -72,9 +72,9 @@ namespace CompetitiveCoders.com_Considition2022.Genetic
                     var percentages = new[] { 0, 0.10, 0.30, 0.50, 0.7, 0.90 };
                     return new Gene(percentages[_rng.Next(percentages.Length)]);
                 case 3: //budgetPercentStart
-                    var maxBudgetPercentStart = 1.0;
+                    var maxBudgetPercentStart = 0.5;
                     var minBudgetPercentStart = 0.0;
-                    var stepBudgetPercentStart = 0.1;
+                    var stepBudgetPercentStart = 0.03;
 
                     var choicesBudgetPercent = Enumerable.Range(0, 100)
                         .Select(i => minBudgetPercentStart + (i * stepBudgetPercentStart))
@@ -82,7 +82,7 @@ namespace CompetitiveCoders.com_Considition2022.Genetic
 
                     return new Gene(choicesBudgetPercent[_rng.Next(choicesBudgetPercent.Count())]);
                 case 4: //FirstDayBagsPerPerson
-                    var maxFirstDayBags = 6.0;
+                    var maxFirstDayBags = 10.0;
                     var minFirstDayBags = 0.5;
                     var stepFirstDayBags = 0.5;
 
@@ -97,7 +97,7 @@ namespace CompetitiveCoders.com_Considition2022.Genetic
                     var minNewBagsInterval = 1;
                     return new Gene(_rng.Next(minNewBagsInterval, maxNewBagsInterval + 1));
                 case 6: //RenewBagsPerPerson
-                    var maxRenewBagsPerPerson = 6.0;
+                    var maxRenewBagsPerPerson = 10.0;
                     var minRenewBagsPerPerson = 0.5;
                     var stepRenewBagsPerPerson = 0.5;
 
