@@ -106,7 +106,7 @@ namespace CompetitiveCoders.com_Considition2022.Genetic
                                             .TakeWhile(i => i <= maxRenewBagsPerPerson).ToList();
 
                     return new Gene(choicesRenewBagsPerPerson[_rng.Next(choicesRenewBagsPerPerson.Count())]);
-                case 7: //budgetPercentStart
+                case 7: //budgetPercentRenew
                     var maxBudgetPercentRenew = 0.5;
                     var minBudgetPercentRenew = 0.0;
                     var stepBudgetPercentRenew = 0.03;
