@@ -1,43 +1,49 @@
 
-# Algorithm subimssion for the Considition 2022 Competition by [CompetitiveCoders.com](https://www.competitivecoders.com)
+# C# Algorithm submission for the Considition 2022 Competition by [CompetitiveCoders.com](https://www.competitivecoders.com)
 
-# CSharp Starterkit Considition 2022
-This is the StarterKit for Considition 2022 which will help you get going as quickly as possible with the competition.
+Final place: #5
 
-- **The Main Program:** This is where we run the main parts. There is an example solver implemented, Solver, which you can try out of the box.
-- **The API:** A representation of the REST-API that the game is played with.
-- **Solver:** This is the out of the box solver you can change, take inspiration from or just replace with your own solver.
-- **Scoring:** An explanation of the factors that determine the score.
+# Overview
+The competition is about generating input to a REST api that returns a score. 
+I used the [GeneticSharp library](https://github.com/giacomelli/GeneticSharp) to run a genetic algorithm that tried out solutions and improved based on the result. 
 
-The competition itself and how the evaluation of the solutions work is described in more in detail on [Considition.com/rules](considition.com/rules).
+The only "logic" was how to set the limits on possible Gene values and how to spread out the orders. 
+* The gene values are found in the GenerateGene method in SolutionChromosome.cs. I opted to limit possible values since running the algorithm "takes forever" when every gene is to be evaluated by posting to a REST api - which proved a winning strategy given that the API performance during the competition was next to nothing.
+* To limit possible genes and search space, the orders where spread based on 5 parameters:
+  - First day order based on population
+  - First day order based on company budget
+  - Interval to renew orders
+  - Amount per renew based on population
+  - Amount per renew based on initial budget
 
-# Installation and running
-Run *Program.cs*
 
-# Main Program
-The Main Program is simple. Each run of the program does the following:
-- Fetches the desired map
-- Creates a solution with the selected solver
-  - This is where you can implement your solution. Optimize the solver to maximize your score.
-- Submits the score to be validated and if approved, evaluated and posted for the competition.
-- Prints the final score, game id to keep track of your best attempts, some other interesting information from the last run, and a link if you want to see a visualisation of the game.
+# Genetic meta-parameters
+* For the performance reason I put a low population size, to mutate the genes quickly based on small number of inputs.
+* EliteSelection method with 2 winners kept per generation
+* Uniform Crossover
+* UniformMutation
 
-# Solver
-Solver is a very simple iterator to determine how many orders should be put each day with three simple suggested approaches. The refundChoice is set to "True", a bag price of 10 and a refund of 1. The training maps simulates 31 days and the others 365 days.
+The api call is done in the Fitness function and a simple lock() is used to limit the api calls to one at a time. Play nice etc. etc.
 
-**The Game**
-- **New Game** Gets the properties of the selected map in a *GameResponse*, such as the behaviour of the population and company budget.
-- **Submit Game** Submits your game for validation and evaluation. If solution is valid, it returns a *SubmitResponse* with the scoring of your game.
+# Notes
+* A guard limits the order amount to the min of companyBudget and calculated order amount (will disrupt the function of the genetic algorithm a bit)
+* Caching of api results for genes to avoid waiting on api subissions when result is known (results for a submission is deterministic)
+* Api submission automatically retried, but with a linear backoff time to not overwhelm the server
+* API submissions limited to one at a time to not overwhelm the server
+* MapInfo hardcoded for some maps due to bugs on server during the competition
+* Whole program wrapped in an endless loops with try/catch and retries (with delay) due to server errors during competition
 
-# API
-The definition of the API and what it returns can be found on https://api.considition.com/swagger/index.html, or on https://Considition.com/rules.
-To see the visualization of your solution you can either follow the link in the game response or go to https://visualizer.considition.com and enter your gameId
 
-# Scoring
-After submitting a game through **Submit game** a validator will check so that the submission is valid, afterwards the score will be calculated according to the following criteria’s:
+# Running
+The parameters to the program is read from text files (sorry) and is just the mapname and bagtype the program shall optimize. If no config files are present, they are created with default values automatically.
 
-- **Total score** = The final score, as a result by **Customer score** - **CO2 score**
-- **Customer score** = A sum of all positive and negative customer reviews
-- **CO2 score** = The pollution from bag production and bag transports
-  Through trial and error and within the timeframe stated above, you can attempt to plan the orders as many times as you want with different bag types to create the best possible algorithm.
-  ````
+The program logs all submits and responses in raw json files, as well as a list of scores per parameter in a csv file.
+
+During the competition a copy of the application per map and bagtype was run in parallell.
+
+
+
+
+# Competition site
+
+The competition itself and how the evaluation of the solutions work is described in more in detail on [Considition.com/rules](https://www.considition.com/rules).
