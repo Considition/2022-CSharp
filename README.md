@@ -8,7 +8,7 @@ The competition is about generating input to a REST api that returns a score.
 I used the [GeneticSharp library](https://github.com/giacomelli/GeneticSharp) to run a genetic algorithm that tried out solutions and improved based on the result. 
 
 The only "logic" was how to set the limits on possible Gene values and how to spread out the orders. 
-* The gene values are found in the GenerateGene method in SolutionChromosome.cs. I opted to limit possible values since running the algorithm "takes forever" when every gene is to be evaluated by posting to a REST api - which proved a winning strategy given that the API performance during the competition was next to nothing.
+* The gene values are found in the GenerateGene method in [SolutionChromosome.cs](https://github.com/skarlman/Considition-2022-CSharp/blob/main/Genetic/SolutionChromosome.cs). I opted to limit possible values since running the algorithm "takes forever" when every gene is to be evaluated by posting to a REST api - which proved a winning strategy given that the API performance during the competition was next to nothing.
 * To limit possible genes and search space, the orders where spread based on 5 parameters:
   - First day order based on population
   - First day order based on company budget
