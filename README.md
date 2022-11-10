@@ -1,7 +1,7 @@
 
 # C# Algorithm submission for the Considition 2022 Competition by [CompetitiveCoders.com](https://www.competitivecoders.com)
 
-Final place: #5
+Final place: #6 and proud winner of category "Best worst algorithm" :)
 
 # Overview
 The competition is about generating input to a REST api that returns a score. 
